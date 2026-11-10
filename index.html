@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>จัดถ้วยโยเกิร์ตเอง — SUDGREEEK เดโม</title>
+  <meta name="description" content="เดโมจัดถ้วยโยเกิร์ตกรีก SUDGREEEK เลือกขนาด เนื้อกรีก และท็อปปิ้งตามเมนูจริง">
+  <meta name="theme-color" content="#94C2ED">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="img/apple-touch.png">
+  <link rel="stylesheet" href="css/style.css">
+<meta name="robots" content="noindex"></head>
+<body>
+  <a class="skip" href="#menu-scroll">ข้ามไปเมนู</a>
+
+  <header class="site-header">
+    <div class="bar">
+      <div class="brand">
+        <img class="logo" src="img/logo.png" width="512" height="512" alt="โลโก้ SUDGREEEK แก้วโยเกิร์ตวิ่ง">
+        <div class="brand-text">
+          <p class="brand-name">SUDGREEEK</p>
+          <p class="brand-slogan">So Greek So Good</p>
+        </div>
+      </div>
+      <h1>จัดถ้วยโยเกิร์ตเอง</h1>
+      <span class="badge-demo">เดโม</span>
+    </div>
+  </header>
+
+  <main class="stage">
+    <aside class="panel menu-panel" aria-label="เมนู">
+      <div class="cats" role="tablist" aria-label="หมวดเมนู">
+        <button type="button" class="cat" role="tab" id="tab-base" data-target="cat-base" aria-selected="true">เนื้อกรีก</button>
+        <button type="button" class="cat" role="tab" id="tab-topping" data-target="cat-topping" aria-selected="false">ท็อปปิ้ง</button>
+      </div>
+      <div class="menu-scroll" id="menu-scroll">
+        <section class="menu-section" id="cat-base">
+          <h2>ขนาดและเนื้อกรีก</h2>
+          <p class="section-note">เลือกอย่างใดอย่างหนึ่ง ราคาตามขนาด</p>
+          <div class="item-list" id="list-base"></div>
+        </section>
+        <section class="menu-section" id="cat-topping">
+          <h2>ท็อปปิ้ง</h2>
+          <p class="section-note">เลือกได้หลายอย่าง หรือไม่เลือกก็ได้</p>
+          <div class="item-list" id="list-topping"></div>
+        </section>
+      </div>
+    </aside>
+
+    <section class="bowl-panel" aria-label="ถ้วยโยเกิร์ต">
+      <p class="hint" id="hint">เลือกเมนูทางซ้าย แล้วคลิกที่ถ้วยเพื่อใส่</p>
+      <div class="held-chip" id="held-chip" hidden></div>
+      <div class="cup-stage" id="bowl" role="button" tabindex="0" aria-label="ถ้วยโยเกิร์ต คลิกเพื่อใส่ของที่เลือก">
+        <div class="cup-shadow" aria-hidden="true"></div>
+        <div class="cup">
+          <div class="cup-rings" aria-hidden="true"></div>
+          <div class="cup-well" id="cup-well">
+            <div class="yogurt" id="yogurt" hidden></div>
+            <div class="topping-layer" id="topping-layer"></div>
+            <div class="empty-msg" id="empty-msg">
+              <span class="empty-title">ถ้วยว่าง</span>
+              <span class="empty-sub" id="empty-sub">เลือกเมนูแล้วคลิกที่นี่</span>
+            </div>
+          </div>
+        </div>
+        <span class="size-pill" id="size-pill" hidden></span>
+      </div>
+    </section>
+
+    <aside class="panel receipt-panel" aria-label="ใบเสร็จ">
+      <div class="receipt-card">
+        <div class="receipt-head">
+          <h2>ใบเสร็จ</h2>
+          <p class="receipt-shop">SUDGREEEK</p>
+        </div>
+        <p class="receipt-empty" id="receipt-empty">ยังไม่มีรายการ</p>
+        <ul class="lines" id="lines"></ul>
+        <div class="total-row" id="total-row">
+          <span>รวม</span>
+          <strong id="total">฿0</strong>
+        </div>
+        <button type="button" class="btn btn-block" id="confirm" disabled>ยืนยันถ้วยนี้</button>
+        <button type="button" class="btn btn-ghost btn-block" id="reset">เริ่มใหม่</button>
+        <p class="fine">เดโมเท่านั้น ยังไม่มีการสั่งซื้อจริง</p>
+      </div>
+    </aside>
+  </main>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <p class="eyebrow">SUDGREEEK</p>
+      <h2 id="modal-title">ถ้วยนี้พร้อมแล้ว</h2>
+      <ul class="modal-lines" id="modal-lines"></ul>
+      <p class="modal-total">รวม <strong id="modal-total">฿0</strong></p>
+      <p class="modal-note">นี่เป็นเดโมเท่านั้น ยังไม่มีการส่งออเดอร์หรือคิดเงินนะ</p>
+      <button type="button" class="btn btn-block" id="modal-reset">จัดถ้วยใหม่</button>
+      <button type="button" class="btn btn-ghost btn-block" id="modal-close">ปิดหน้านี้</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <div class="cursor" id="cursor" hidden aria-hidden="true">
+    <svg class="cursor-spoon" viewBox="0 0 64 64" width="64" height="64">
+      <ellipse cx="22" cy="22" rx="14" ry="16" fill="#fff9f0" stroke="#111" stroke-width="3"/>
+      <path d="M28 34c8 10 22 24 28 26 3 1 5-1 4-3-3-6-16-18-24-26z" fill="#ffe082" stroke="#111" stroke-width="3" stroke-linejoin="round"/>
+      <ellipse cx="22" cy="20" rx="7" ry="6" fill="#94c2ed" opacity=".45"/>
+    </svg>
+    <div class="cursor-item" id="cursor-item"></div>
+  </div>
+  <div class="fly-layer" id="fly-layer" aria-hidden="true"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
